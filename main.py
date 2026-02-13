@@ -34,6 +34,7 @@ def login():
 login_page = st.Page(login, title="Anmeldung", icon="🔒")
 dashboard = st.Page("main_dashboard.py", title="Startseite", icon="🏠", default=True)
 news_app = st.Page("pages/01_WIPO_RSS.py", title="WIPO RSS", icon="📰")
+epo_app = st.Page("pages/02_EPO_Monitor.py", title="EPO Monitor", icon="⚖️")
 # Hier weitere Apps hinzufügen...
 
 # 4. Logik: Welche Seiten sind sichtbar?
@@ -41,7 +42,7 @@ if st.session_state.authenticated:
     # Nur wenn eingeloggt, sind Dashboard und Apps sichtbar
     pg = st.navigation({
         "Startseite": [dashboard],
-        "Anwendungen": [news_app]
+        "Anwendungen": [news_app, epo_app]
     })
 else:
     # Wenn nicht eingeloggt, existiert nur die Login-Seite
