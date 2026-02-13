@@ -73,7 +73,7 @@ if "patent_list" not in st.session_state:
 
 # --- SIDEBAR ---
 st.sidebar.title("🔍 Steuerung")
-st.sidebar.info(f"Modus: {'Admin 🛠️' if st.session_state.is_admin else 'User 👤'}")
+#st.sidebar.info(f"Modus: {'Admin 🛠️' if st.session_state.is_admin else 'User 👤'}")
 #st.sidebar.info(f"Letzter Sync:\n{st.session_state.last_sync}")
     
 view_mode = st.sidebar.radio("Ansicht:", ["Neue Patente", "Archivierte Patente"])
@@ -163,7 +163,3 @@ if st.session_state.is_admin:
         requests.post(f"https://api.github.com/repos/{USER}/{REPO}/actions/workflows/main.yml/dispatches",
                         headers=headers, json={"ref": "main"})
         st.sidebar.success("Update gestartet!")
-
-if st.sidebar.button("Logout"):
-    st.session_state.password_correct = False
-    st.rerun()
