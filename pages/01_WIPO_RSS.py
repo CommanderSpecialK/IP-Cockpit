@@ -165,9 +165,9 @@ if 'all_news_df' not in st.session_state:
 
 # --- SIDEBAR ---
 with st.sidebar:
-    st.title("🔓 ADMIN" if st.session_state.is_admin else "👤 USER")
-    st.metric("Nächster Auto-Abruf in:", get_next_run())
-    st.divider()
+    #st.title("🔓 ADMIN" if st.session_state.is_admin else "👤 USER")
+    #st.metric("Nächster Auto-Abruf in:", get_next_run())
+    #st.divider()
     admin_mode = "Beiträge"
     if st.session_state.is_admin:
         admin_mode = st.radio("🛠️ Admin-Konsole", ["Beiträge", "Feeds verwalten", "Sperrliste"])
