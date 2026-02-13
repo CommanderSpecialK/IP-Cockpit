@@ -1,0 +1,27 @@
+import streamlit as st
+
+def check_auth():
+    """
+    Diese Funktion prüft, ob der User eingeloggt ist.
+    Sie wird oben in jeder Unterseite aufgerufen.
+    """
+    # 1. Prüfen, ob der User eingeloggt ist
+    if "authenticated" not in st.session_state or not st.session_state.authenticated:
+        st.warning("⚠️ Zugriff verweigert. Bitte logge dich auf der Startseite ein.")
+        st.link_button("Zurück zum Login", "/")
+        st.stop() # Beendet die Ausführung der Unterseite sofort
+
+    # 2. Wenn eingeloggt: Sidebar-Navigation anzeigen
+    st.sidebar.link_button("🏠 Zurück zum Hauptmenü", "/")
+    
+    # 3. Admin-Status in der Sidebar visualisieren
+    is_admin = st.session_state.get("is_admin", False)
+    if is_admin:
+        st.sidebar.success("⚡ Admin-Modus: Aktiv")
+    else:
+        st.sidebar.info("👤 Standard-Nutzer")
+        
+    st.sidebar.divider()
+    
+    # Gibt den Admin-Status zurück, damit die App ihn nutzen kann
+    return is_admin
