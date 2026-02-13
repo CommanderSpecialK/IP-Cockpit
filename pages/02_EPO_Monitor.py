@@ -74,7 +74,7 @@ if "patent_list" not in st.session_state:
 # --- SIDEBAR ---
 st.sidebar.title("🔍 Steuerung")
 st.sidebar.info(f"Modus: {'Admin 🛠️' if st.session_state.is_admin else 'User 👤'}")
-st.sidebar.info(f"Letzter Sync:\n{st.session_state.last_sync}")
+#st.sidebar.info(f"Letzter Sync:\n{st.session_state.last_sync}")
     
 view_mode = st.sidebar.radio("Ansicht:", ["Neue Patente", "Archivierte Patente"])
 search_query = st.sidebar.text_input("Suche", "").lower()
