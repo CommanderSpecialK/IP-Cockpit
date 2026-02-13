@@ -8,6 +8,7 @@ import io
 from datetime import datetime, timedelta
 from PIL import Image
 import os
+from auth import check_auth
 
 # --- 1. SETUP & ICON ---
 icon = "🗄️" 
@@ -29,6 +30,8 @@ def get_next_run():
     return f"{diff.days}d {diff.seconds // 3600}h {(diff.seconds // 60) % 60}m"
 
 #hier kommt dann die passwortabfrage hin
+is_admin = check_auth()
+
 
 if check_password():
     # --- GITHUB HEADERS ---
