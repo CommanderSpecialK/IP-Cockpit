@@ -44,13 +44,14 @@ st.set_page_config(page_title="Marken Monitor", layout="wide")
 st.title("🛡️ Marken Monitor Cockpit")
     
 # Sidebar: Marke hinzufügen
-st.sidebar.header("Marken-Verwaltung")
-new_brand = st.sidebar.text_input("Neue Marke hinzufügen:")
-if st.sidebar.button("Hinzufügen"):
-    if new_brand and new_brand not in watched_brands:
-        watched_brands.append(new_brand)
-        save_to_github(BRAND_FILE, "\n".join(watched_brands), brands_sha, f"Add {new_brand}")
-        st.rerun()
+if st.session_state.is_admin:
+    st.sidebar.header("Marken-Verwaltung")
+    new_brand = st.sidebar.text_input("Neue Marke hinzufügen:")
+    if st.sidebar.button("Hinzufügen"):
+        if new_brand and new_brand not in watched_brands:
+            watched_brands.append(new_brand)
+            save_to_github(BRAND_FILE, "\n".join(watched_brands), brands_sha, f"Add {new_brand}")
+            st.rerun()
     
 # Sidebar: Liste der überwachten Marken mit Löschfunktion
 st.sidebar.divider()
@@ -59,10 +60,11 @@ if watched_brands:
     for brand in watched_brands:
         col_name, col_del = st.sidebar.columns([4, 1])
         col_name.write(f"`{brand}`")
-        if col_del.button("❌", key=f"del_{brand}"):
-            watched_brands.remove(brand)
-            save_to_github(BRAND_FILE, "\n".join(watched_brands), brands_sha, f"Remove {brand}")
-            st.rerun()
+        if st.session_state.is_admin:
+            if col_del.button("❌", key=f"del_{brand}"):
+                watched_brands.remove(brand)
+                save_to_github(BRAND_FILE, "\n".join(watched_brands), brands_sha, f"Remove {brand}")
+                st.rerun()
 else:
     st.sidebar.info("Keine Marken in der Liste.")
     
