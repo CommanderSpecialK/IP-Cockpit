@@ -2,3 +2,6 @@ streamlit
 pandas
 feedparser
 requests
+python-epo-ops-client
+plotly
+Pillow
