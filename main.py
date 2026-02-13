@@ -18,7 +18,7 @@ def login():
         
         if submit:
             # Hier kannst du die Passwörter anpassen oder st.secrets nutzen
-            if password == st.secrets["APP_PASSWORD"]:
+            if password == st.secrets["ADMIN_PASSWORD"]:
                 st.session_state.authenticated = True
                 st.session_state.is_admin = True
                 st.success("Erfolgreich als Admin angemeldet!")
