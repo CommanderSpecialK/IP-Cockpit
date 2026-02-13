@@ -180,7 +180,8 @@ with st.sidebar:
         valid_cats = st.session_state.all_news_df['category'].dropna().unique() if not st.session_state.all_news_df.empty else []
         view = st.radio("Filter", ["Alle"] + sorted([str(k) for k in valid_cats if k]) + ["⭐ Wichtig"])
         search = st.text_input("🔍 Suche...")
-    if st.button("🚪 Logout", use_container_width=True): st.session_state.password_correct = False; st.rerun()
+
+
 
 # --- HAUPTBEREICH ---
 if admin_mode == "Feeds verwalten" and st.session_state.is_admin:
