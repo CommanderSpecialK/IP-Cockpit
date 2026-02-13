@@ -40,7 +40,7 @@ news_app = st.Page("pages/01_WIPO_RSS.py", title="WIPO RSS", icon="📰")
 if st.session_state.authenticated:
     # Nur wenn eingeloggt, sind Dashboard und Apps sichtbar
     pg = st.navigation({
-        "Zentrale": [dashboard],
+        "Startseite": [dashboard],
         "Anwendungen": [news_app]
     })
 else:
