@@ -2,28 +2,25 @@ import streamlit as st
 
 def check_auth():
     """
-    Zentrale Sicherheitsprüfung für alle Unterseiten.
-    Prüft Login, Admin-Status und bietet Navigation/Logout an.
+    Zentrale Sicherheitsprüfung.
     """
-    
-    # 1. Sicherheits-Check: Ist der User eingeloggt?
+    # 1. Sicherheits-Check: Wenn nicht eingeloggt, zeige Warnung und Stopp
     if not st.session_state.get("authenticated", False):
         st.warning("⚠️ Bitte melde dich zuerst an.")
-        # Wir leiten zur Hauptdatei zurück, die den Login-Screen zeigt
+        # WICHTIG: rerun() statt switch_page("main.py")
         if st.button("👉 Zum Login"):
             st.rerun() 
         st.stop()
 
-    # 2. Sidebar: Navigation zurück zur Startseite
-    # Da st.navigation die App-Liste anzeigt, setzen wir den Home-Button ganz oben hin
-    if st.sidebar.button("🏠 Zurück zum Hauptmenü", use_container_width=True):
-        st.switch_page("main.py")
+    # 2. Sidebar: Zurück zum Dashboard
+    # Hier nutzen wir den DATEINAMEN der Dashboard-Datei
+    if st.sidebar.button("🏠 Zurück zur Startseite", use_container_width=True):
+        st.switch_page("main_dashboard.py") 
 
     st.sidebar.divider()
     
-    # 3. Admin-Status prüfen & anzeigen
+    # 3. Admin-Status prüfen
     is_admin = st.session_state.get("is_admin", False)
-    
     if is_admin:
         st.sidebar.success("⚡ Admin-Modus: Aktiv")
     else:
@@ -31,13 +28,12 @@ def check_auth():
         
     st.sidebar.divider()
 
-    # 4. Zentraler Logout-Button am Ende der Sidebar
+    # 4. Logout-Button
     if st.sidebar.button("🚪 Logout", use_container_width=True, type="secondary"):
-        # Alle Status-Variablen zurücksetzen
         st.session_state.authenticated = False
         st.session_state.is_admin = False
+        # WICHTIG: Auch hier rerun() nutzen
         st.rerun() 
-
     
-    # Gibt den Status zurück, damit die Unterseite 'if is_admin:' nutzen kann
     return is_admin
+
