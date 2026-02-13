@@ -31,21 +31,20 @@ def login():
             else:
                 st.error("Falsches Passwort. Bitte versuche es erneut.")
 
-# Logik: Zeige Login oder Dashboard
-if not st.session_state.authenticated:
-    login()
-else:
-    st.title("🚀 Willkommen im IP-Cockpit")
-    st.markdown(f"""
-    Du bist als **{'Admin' if st.session_state.is_admin else 'Nutzer'}** eingeloggt.
-    
-    Nutze die **Seitenleiste links**, um zwischen den verschiedenen Anwendungen zu wechseln.
-    """)
-    
-    st.divider()
-    
-    if st.button("Abmelden"):
-        st.session_state.authenticated = False
-        st.session_state.is_admin = False
-        st.rerun()
+login_page = st.Page(login, title="Anmeldung", icon="🔒")
+dashboard = st.Page("main_dashboard.py", title="Startseite", icon="🏠", default=True)
+news_app = st.Page("pages/01_WIPO_RSS.py", title="WIPO RSS", icon="📰")
+# Hier weitere Apps hinzufügen...
 
+# 4. Logik: Welche Seiten sind sichtbar?
+if st.session_state.authenticated:
+    # Nur wenn eingeloggt, sind Dashboard und Apps sichtbar
+    pg = st.navigation({
+        "Zentrale": [dashboard],
+        "Anwendungen": [news_app]
+    })
+else:
+    # Wenn nicht eingeloggt, existiert nur die Login-Seite
+    pg = st.navigation([login_page], position="hidden") # "hidden" blendet Sidebar komplett aus!
+
+pg.run()
