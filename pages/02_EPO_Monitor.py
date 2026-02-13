@@ -6,16 +6,6 @@ import base64
 from datetime import datetime
 import plotly.express as px
 from auth import check_auth
-from PIL import Image
-
-icon = "🗄️" 
-if os.path.exists("logo.png"):
-    try:
-        icon = Image.open("logo.png")
-    except: pass
-
-st.set_page_config(page_title="WFL RSS Manager", page_icon=icon, layout="wide")
-
 
 # --- KONFIGURATION & SECRETS ---
 USER = "CommanderSpecialK"
