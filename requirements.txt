@@ -5,3 +5,6 @@ requests
 python-epo-ops-client
 plotly
 Pillow
+PyGithub
+duckduckgo_search
+typing_extensions
