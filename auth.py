@@ -11,7 +11,7 @@ def check_auth():
         st.warning("⚠️ Bitte melde dich zuerst an.")
         # Wir leiten zur Hauptdatei zurück, die den Login-Screen zeigt
         if st.button("👉 Zum Login"):
-            st.switch_page("main.py") 
+            st.rerun() 
         st.stop()
 
     # 2. Sidebar: Navigation zurück zur Startseite
@@ -36,9 +36,8 @@ def check_auth():
         # Alle Status-Variablen zurücksetzen
         st.session_state.authenticated = False
         st.session_state.is_admin = False
-        st.rerun()
+        st.switch_page("main_dashboard.py")
 
-    return is_admin
     
     # Gibt den Status zurück, damit die Unterseite 'if is_admin:' nutzen kann
     return is_admin
