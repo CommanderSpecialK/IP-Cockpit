@@ -95,7 +95,7 @@ def update_cache():
 
     # 1. Sperrliste laden
     print("Lade Sperrliste...")
-    del_url = f"https://api.github.com/repos/{clean_repo}/contents/geloescht.txt"
+    del_url = f"https://api.github.com/repos/{clean_repo}/contents/WIPO/geloescht.txt"
     r_del = requests.get(del_url, headers=headers)
     sperrliste = set()
     if r_del.status_code == 200:
@@ -105,7 +105,7 @@ def update_cache():
 
     # 2. Feeds laden
     try:
-        df_feeds = pd.read_csv("feeds.csv", encoding='utf-8-sig', sep=None, engine='python')
+        df_feeds = pd.read_csv("WIPO/feeds.csv", encoding='utf-8-sig', sep=None, engine='python')
     except Exception as e:
         print(f"CSV Fehler: {e}")
         return
@@ -133,7 +133,7 @@ def update_cache():
 
     # 6. Upload news_cache.json
     content = json.dumps(final_data, indent=2, ensure_ascii=False)
-    url = f"https://api.github.com/repos/{clean_repo}/contents/news_cache.json"
+    url = f"https://api.github.com/repos/{clean_repo}/contents/WIPO/news_cache.json"
     
     r_sha = requests.get(url, headers=headers)
     sha = r_sha.json().get("sha") if r_sha.status_code == 200 else None
