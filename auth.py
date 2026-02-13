@@ -22,6 +22,10 @@ def check_auth():
         st.sidebar.info("👤 Standard-Nutzer")
         
     st.sidebar.divider()
+    if st.sidebar.button("🚪 Logout", use_container_width=True, type="secondary"):
+        st.session_state.authenticated = False
+        st.session_state.is_admin = False
+        st.rerun()
     
     # Gibt den Admin-Status zurück, damit die App ihn nutzen kann
     return is_admin
