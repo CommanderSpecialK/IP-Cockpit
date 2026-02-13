@@ -36,8 +36,9 @@ def check_auth():
         # Alle Status-Variablen zurücksetzen
         st.session_state.authenticated = False
         st.session_state.is_admin = False
-        # Zurück zur Login-Seite springen
-        st.switch_page("main.py")
+        st.rerun()
+
+    return is_admin
     
     # Gibt den Status zurück, damit die Unterseite 'if is_admin:' nutzen kann
     return is_admin
