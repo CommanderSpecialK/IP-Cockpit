@@ -105,7 +105,7 @@ def update_cache():
 
     # 2. Feeds laden
     try:
-        df_feeds = pd.read_csv("WIPO/feeds.csv", encoding='utf-8-sig', sep=None, engine='python')
+        df_feeds = pd.read_csv("feeds.csv", encoding='utf-8-sig', sep=None, engine='python')
     except Exception as e:
         print(f"CSV Fehler: {e}")
         return
