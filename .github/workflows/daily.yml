@@ -1,0 +1,28 @@
+name: Refresh News Cache
+on:
+  #schedule:
+  #  - cron: '17 0 * * 5'  # Beispiel für eine krumme Uhrzeit
+  workflow_dispatch:      # Ermöglicht manuelles Starten
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: |
+          pip install pandas feedparser requests lxml
+
+      - name: Run Update Script
+        env:
+          REPO_NAME: ${{ secrets.REPO_NAME }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: python update_cache.py
