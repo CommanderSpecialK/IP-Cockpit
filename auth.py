@@ -8,11 +8,15 @@ def check_auth():
     # 1. Prüfen, ob der User eingeloggt ist
     if "authenticated" not in st.session_state or not st.session_state.authenticated:
         st.warning("⚠️ Zugriff verweigert. Bitte logge dich auf der Startseite ein.")
-        st.link_button("Zurück zum Login", "/")
-        st.stop() # Beendet die Ausführung der Unterseite sofort
+        if st.button("👉 Zum Login"):
+            st.switch_page("main.py") 
+        st.stop()
 
     # 2. Wenn eingeloggt: Sidebar-Navigation anzeigen
-    st.sidebar.link_button("🏠 Zurück zum Hauptmenü", "/")
+    if st.sidebar.button("🏠 Zurück zum Hauptmenü", use_container_width=True):
+        st.switch_page("main.py")
+
+    st.sidebar.divider()
     
     # 3. Admin-Status in der Sidebar visualisieren
     is_admin = st.session_state.get("is_admin", False)
