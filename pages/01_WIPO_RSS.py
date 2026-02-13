@@ -135,10 +135,10 @@ def sync_all():
         g_content = "\n".join(sorted(list(st.session_state.geloeschte_artikel)))
         w_content = "\n".join(sorted(list(st.session_state.wichtige_artikel)))
         f_content = st.session_state.feeds_df.to_csv(index=False, sep=';')
-        r1 = upload_file("WIPO/news_cache.json", df.to_json(orient='records', indent=2), "Update Cache")
-        r2 = upload_file("WIPO/geloescht.txt", g_content, "Update Delete List")
-        r3 = upload_file("WIPO/wichtig.txt", w_content, "Update Favorites")
-        r4 = upload_file("WIPO/feeds.csv", f_content, "Update Feeds")
+        r1 = upload_file("news_cache.json", df.to_json(orient='records', indent=2), "Update Cache")
+        r2 = upload_file("geloescht.txt", g_content, "Update Delete List")
+        r3 = upload_file("wichtig.txt", w_content, "Update Favorites")
+        r4 = upload_file("feeds.csv", f_content, "Update Feeds")
         if all(r in [200, 201] for r in [r1, r2, r3, r4]):
             st.session_state.unsaved_changes = False
             st.success("✅ Synchronisiert!"); time.sleep(1); st.rerun()
@@ -147,15 +147,15 @@ def sync_all():
 # --- INITIALES LADEN ---
 if 'all_news_df' not in st.session_state:
     with st.spinner("Lade Daten..."):
-        raw_w, _ = load_from_github("WIPO/wichtig.txt")
+        raw_w, _ = load_from_github("wichtig.txt")
         st.session_state.wichtige_artikel = set(raw_w.splitlines()) if raw_w else set()
-        raw_g, _ = load_from_github("WIPO/geloescht.txt")
+        raw_g, _ = load_from_github("geloescht.txt")
         st.session_state.geloeschte_artikel = set(raw_g.splitlines()) if raw_g else set()
-        raw_json, _ = load_from_github("WIPO/news_cache.json")
+        raw_json, _ = load_from_github("news_cache.json")
         st.session_state.all_news_df = pd.DataFrame(json.loads(raw_json)) if raw_json else pd.DataFrame()
         for col in ["source_name", "title", "link", "category"]:
             if col not in st.session_state.all_news_df.columns: st.session_state.all_news_df[col] = None
-        raw_feeds, _ = load_from_github("WIPO/feeds.csv")
+        raw_feeds, _ = load_from_github("feeds.csv")
         if raw_feeds:
             st.session_state.feeds_df = pd.read_csv(io.StringIO(raw_feeds), sep=';')
             st.session_state.feeds_df.columns = [c.strip().replace('\ufeff', '') for c in st.session_state.feeds_df.columns]
